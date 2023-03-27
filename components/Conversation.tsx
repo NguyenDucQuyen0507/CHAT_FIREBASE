@@ -84,7 +84,7 @@ const StyledInput = styled.input`
   border-radius: 20px;
 `;
 const EndOfMessagesAutoScrool = styled.div`
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 `;
 const ConversationsScreen = ({
   conversation,
