@@ -33,6 +33,9 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "@/config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+interface StyledBackgroundProps {
+  src: string;
+}
 const StyledTimeHeader = styled.div`
   display: flex;
   align-items: center;
@@ -67,12 +70,23 @@ const StyledHeaderIcon = styled.div`
 `;
 const StyledMessagesContainer = styled.div`
   position: relative;
-  padding: 20px;
+  padding: 0px;
   background-color: white;
   min-height: 90vh;
   z-index: 1;
 `;
 
+const StyledBackground = styled.img<StyledBackgroundProps>`
+  position: absolute;
+  object-fit: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  top: -10px;
+`;
+const StyledShowMess = styled.div`
+  padding-bottom: 20px;
+`;
 const StyledFormContainer = styled.form`
   display: flex;
   align-items: center;
@@ -174,6 +188,7 @@ const ConversationsScreen = ({
     endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const background = "/Mess.jpg";
   return (
     <>
       <StyledTimeHeader>
@@ -207,9 +222,11 @@ const ConversationsScreen = ({
         </StyledLightDark>
       </StyledTimeHeader>
       <StyledMessagesContainer>
-        {showMessages()}
+        <StyledBackground src={background} />
+        <StyledShowMess>{showMessages()}</StyledShowMess>
         {/* Phần mà khi ta gửi tn thì nó sẽ tự kéo tn xuống cho mình xem khoog cần phải kéo scrool */}
         <EndOfMessagesAutoScrool ref={endOfMessagesRef} />
+        {/* </StyledBackground> */}
       </StyledMessagesContainer>
       <StyledFormContainer>
         <InsertEmoticonIcon></InsertEmoticonIcon>

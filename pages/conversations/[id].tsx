@@ -44,6 +44,7 @@ const Conversations = ({ conversation, messages }: Props) => {
         </title>
       </Head>
       <Sidebar />
+
       {/* {messages.map((mess) => (
         <p key={mess.id}>{JSON.stringify(mess)}</p>
       ))} */}
