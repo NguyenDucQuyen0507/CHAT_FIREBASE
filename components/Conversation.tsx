@@ -6,6 +6,8 @@ import {
   transformMessages,
 } from "@/utils/getMessages";
 import IconButton from "@mui/material/IconButton";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import styled from "styled-components";
 import RecipientAvatar from "./RecipientAvatar";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
@@ -34,10 +36,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 const StyledTimeHeader = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 11px;
   position: sticky;
   top: 0;
-  background-color: whitesmoke;
+  background: rgb(118, 241, 246);
   height: 80px;
   z-index: 10;
   /* width: 100%; */
@@ -51,6 +54,11 @@ const StyledHeaderInfo = styled.div`
     color: gray;
   }
 `;
+const StyledUserInfo = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const StyledLightDark = styled.div``;
 const StyledH3 = styled.div`
   word-break: break-all;
 `;
@@ -60,7 +68,7 @@ const StyledHeaderIcon = styled.div`
 const StyledMessagesContainer = styled.div`
   position: relative;
   padding: 20px;
-  background-color: #e5ded8;
+  background-color: white;
   min-height: 90vh;
   z-index: 1;
 `;
@@ -99,11 +107,14 @@ const ConversationsScreen = ({
   //dùng để lưu giá trị thay đổi của input
   const [inputChange, setinputChange] = useState("");
   console.log("change", inputChange);
-
+  const [first, setfirst] = useState(false);
   const router = useRouter();
   const conversationId = router.query.id;
   // console.log("Id", conversationId);
 
+  const toggle = () => {
+    setfirst(!first);
+  };
   const getqueryMessages = generateConversationMessages(
     conversationId as string
   );
@@ -166,24 +177,34 @@ const ConversationsScreen = ({
   return (
     <>
       <StyledTimeHeader>
-        <RecipientAvatar recipient={recipient} recipentEmail={recipentEmail} />
-        <StyledHeaderInfo>
-          <StyledH3>{recipentEmail}</StyledH3>
-          {recipient && (
-            <span>
-              Last active:{" "}
-              {converFirestoreTimestampToString(recipient.lastSeen)}
-            </span>
-          )}
-        </StyledHeaderInfo>
-        <StyledHeaderIcon>
-          <IconButton>
-            <AttachFileIcon />
-          </IconButton>
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
-        </StyledHeaderIcon>
+        <StyledUserInfo>
+          <RecipientAvatar
+            recipient={recipient}
+            recipentEmail={recipentEmail}
+          />
+          <StyledHeaderInfo>
+            <StyledH3>{recipentEmail}</StyledH3>
+            {recipient && (
+              <span>
+                Last active:{" "}
+                {converFirestoreTimestampToString(recipient.lastSeen)}
+              </span>
+            )}
+          </StyledHeaderInfo>
+        </StyledUserInfo>
+        <StyledLightDark>
+          <StyledHeaderIcon>
+            <IconButton>
+              <AttachFileIcon />
+            </IconButton>
+            <IconButton>
+              <MoreVertIcon />
+            </IconButton>
+            <IconButton onClick={toggle}>
+              {first ? <LightModeOutlinedIcon /> : <DarkModeOutlinedIcon />}
+            </IconButton>
+          </StyledHeaderIcon>
+        </StyledLightDark>
       </StyledTimeHeader>
       <StyledMessagesContainer>
         {showMessages()}
@@ -198,7 +219,7 @@ const ConversationsScreen = ({
           onKeyDown={sentMessagesEnter}
         ></StyledInput>
         <IconButton onClick={sentMessagesClick} disabled={!inputChange}>
-          <SendIcon />
+          <SendIcon style={{ color: !inputChange ? "" : "blue" }} />
         </IconButton>
         <IconButton>
           <MicIcon />

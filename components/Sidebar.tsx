@@ -34,8 +34,6 @@ const StyledContainer = styled.div`
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-  border-right: 1px solid gray;
-  /* background-color: #fcf9f9; */
 `;
 
 const StyledHeader = styled.div`
@@ -48,12 +46,13 @@ const StyledHeader = styled.div`
   position: sticky;
   top: 0;
   z-index: 10;
-  /* border-bottom: 1px solid black; */
-  background-color: whitesmoke;
+  background: rgb(118, 241, 246);
 `;
 const StyledScrollUser = styled.div`
   position: relative;
+  height: 100vh;
   z-index: 1;
+  background: rgb(118, 241, 246); ;
 `;
 const StyleSearch = styled.div`
   display: flex;
@@ -67,17 +66,19 @@ const StyleSearchInput = styled.input`
   border: none;
   outline: none;
   padding: 5px;
+  background: rgb(142, 248, 252);
 `;
 const StyleSidebarButton = styled(Button)`
   width: 100%;
   border-top: 1px solid whitesmoke;
   border-bottom: 1px solid whitesmoke;
   font-weight: 700;
+  border: none;
 `;
 const StyledUserAvatar = styled(Avatar)`
   cursor: pointer;
   :hover {
-    opacity: 0.8;
+    opacity: 0.9;
   }
 `;
 const logOut = async () => {

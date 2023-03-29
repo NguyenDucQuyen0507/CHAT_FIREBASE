@@ -11,7 +11,7 @@ const StyledContainer = styled.div`
   word-break: break-all;
   cursor: pointer;
   :hover {
-    background-color: #cccc;
+    background: rgb(142, 248, 252);
   }
 `;
 const StyledAvatar = styled(Avatar)`
